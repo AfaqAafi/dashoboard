@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { countries } from "../../utils/constant";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Register = () => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
- const formik = useFormik({
+  const formik = useFormik({
     initialValues: {
       engineerName: "",
       contact: "",
@@ -16,11 +15,11 @@ const Register = () => {
     },
     onSubmit: (values) => {
       console.log(values);
-       localStorage.setItem("formData", JSON.stringify(values));
-        navigate("/login");    
+      localStorage.setItem("formData", JSON.stringify(values));
+      navigate("/");
     },
- });
-  
+  });
+
   return (
     <div className="fixed left-0 right-0 top-0 flex justify-center items-center h-screen bg-gradient-to-r from-purple-500 to-pink-500">
       <div className="w-[298px] sm:w-[500px] p-8 bg-white rounded-lg shadow-lg">
@@ -148,6 +147,12 @@ const Register = () => {
           >
             Register
           </button>
+          <p className="text-sm font-semibold mt-2 text-center">
+            Already have an account{" "}
+            <Link className="underline text-blue-600" to="/login">
+              Login
+            </Link>{" "}
+          </p>
         </form>
       </div>
     </div>

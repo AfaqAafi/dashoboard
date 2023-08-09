@@ -9,32 +9,23 @@ import SetPassEmail from "./pages/auth/SetPassEmail";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import NotFound from "./pages/NotFound";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
 
 const App = () => {
-  const navigate = useNavigate();
-  const token = JSON.parse(localStorage.getItem("formData"))?.email;
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/register");
-    } else if (token) {
-      navigate('/')
-    }
-  }, [navigate, token]);
-
-
   return (
     <>
       <Header />
       <Sidebar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/jobs" element={<Jobs />} />
-        <Route path="/setpass" element={<SetPassEmail />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/setpass" element={<SetPassEmail />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
